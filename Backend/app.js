@@ -19,7 +19,7 @@ config({path: "./config/config.env"})
 
 app.use(
     cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: 'http://localhost:5175',
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
