@@ -17,11 +17,17 @@ const app = express();
 
 config({path: "./config/config.env"})
 
-app.use(
-    cors({
-    origin: 'http://localhost:5175',
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+const allowedOrigins = ['http://localhost:5175', 'https://mern-apollo-patient.onrender.com'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 app.use(cookieParser());
