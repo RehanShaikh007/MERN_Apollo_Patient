@@ -10,7 +10,6 @@ import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
-import path from "path"
 
 
 const app = express();
@@ -43,14 +42,9 @@ app.use("/api/v1/appointment", appointmentRouter);
 
 dbConnection();
 
-const __dirname = path.resolve();
+
 
 app.use(errorMiddleware);
 
-app.use(express.static(path.join(__dirname, '/Frontend/dist')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
-})
 
 export default app;

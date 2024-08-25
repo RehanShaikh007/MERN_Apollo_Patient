@@ -1,5 +1,8 @@
 import app from "./app.js";
 import cloudinary from "cloudinary"
+import path from "path"
+import express from "express";
+
 
 const port = process.env.PORT || 5000;
 
@@ -13,3 +16,11 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
+const __dirname = path.resolve();
+
+
+app.use(express.static(path.join(__dirname, '/Frontend/dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
+})
