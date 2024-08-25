@@ -1,6 +1,7 @@
 export const generateToken = (user, message, statusCode, res) => {
   const token = user.generateJsonWebToken();
   const cookieName = user.role === "Admin" ? "adminToken" : "patientToken";
+  const secure = process.env.NODE_ENV === 'production'; 
   res
     .status(statusCode)
     .cookie(cookieName, token, {
